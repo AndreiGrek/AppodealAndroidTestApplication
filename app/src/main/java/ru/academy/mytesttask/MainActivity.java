@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         v.setEnabled(true);
                     }
-                }, 15000);
+                }, 60000);
             }
         });
 
