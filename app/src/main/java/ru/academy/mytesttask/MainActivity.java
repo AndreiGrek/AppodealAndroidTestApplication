@@ -28,7 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private int counterBanner;
     private int counterVideo;
     private String APP_KEY;
     private List<NativeAd> nativeAds = new ArrayList<>();
@@ -40,19 +39,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APP_KEY = "121a60c45245d740876d1849cdc6c877f80b58168086e9a4";
-        counterBanner = 1;
-        counterVideo = 1;
+        AppodealBannerCallbacks appodealBannerCallbacks = new AppodealBannerCallbacks(this);
+        AppodealInterstitialCallbacks appodealInterstitialCallbacks = new AppodealInterstitialCallbacks(this);
+        AppodealRewardedVideoCallbacks appodealRewardedVideoCallbacks = new AppodealRewardedVideoCallbacks(this);
+        AppodealNativeCallbacks appodealNativeCallbacks = new AppodealNativeCallbacks(this);
 
+        APP_KEY = "121a60c45245d740876d1849cdc6c877f80b58168086e9a4";
+        counterVideo = 1;
+        Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.BANNER_TOP
+                | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.NATIVE);
         findViewById(R.id.banners_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.BANNER_TOP);
-                if (counterBanner < 6) {
+                Appodeal.setBannerCallbacks(appodealBannerCallbacks);
+                if (appodealBannerCallbacks.getShowCounter() < 5) {
                     Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
                     Appodeal.show(MainActivity.this, Appodeal.BANNER_TOP);
-                    Toast.makeText(MainActivity.this, "Show " + counterBanner + " Banner", Toast.LENGTH_SHORT).show();
-                    counterBanner++;
                 } else Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
             }
         });
@@ -60,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.interstitials_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.INTERSTITIAL | Appodeal.BANNER_TOP);
-                Appodeal.setInterstitialCallbacks(new AppodealInterstitialCallbacks(MainActivity.this));
+                Appodeal.setInterstitialCallbacks(appodealInterstitialCallbacks);
                 boolean isShown = Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 Toast.makeText(MainActivity.this, String.valueOf(isShown), Toast.LENGTH_SHORT).show();
                 Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
@@ -71,16 +72,15 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         v.setEnabled(true);
                     }
-                }, 60000);
+                }, 60);
             }
         });
 
         findViewById(R.id.rewarded_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(counterVideo <4) {
-                    Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.REWARDED_VIDEO | Appodeal.BANNER_TOP);
-                    Appodeal.setRewardedVideoCallbacks(new AppodealRewardedVideoCallbacks(MainActivity.this));
+                if (counterVideo < 4) {
+                    Appodeal.setRewardedVideoCallbacks(appodealRewardedVideoCallbacks);
                     boolean isShown = Appodeal.show(MainActivity.this, Appodeal.REWARDED_VIDEO);
                     Toast.makeText(MainActivity.this, String.valueOf(counterVideo), Toast.LENGTH_SHORT).show();
                     Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.native_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Appodeal.setNativeCallbacks(new AppodealNativeCallbacks(MainActivity.this));
-                Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.NATIVE | Appodeal.BANNER_TOP);
+                Appodeal.setNativeCallbacks(appodealNativeCallbacks);
                 Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
                 Appodeal.cache(MainActivity.this, Appodeal.NATIVE, 1);
                 nativeAds = Appodeal.getNativeAds(3);
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 for (NativeAd nativeAd : nativeAds) {
                     nativeAdsListView.addView(new NativeAdViewNewsFeed(nativeAdsListView.getContext(), nativeAd,
                             ((MainActivity) nativeAdsListView
-                            .getContext()).placementName));
+                                    .getContext()).placementName));
                 }
             }
         });

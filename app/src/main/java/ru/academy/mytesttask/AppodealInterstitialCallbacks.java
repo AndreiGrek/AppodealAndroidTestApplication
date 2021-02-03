@@ -8,6 +8,7 @@ import com.appodeal.ads.InterstitialCallbacks;
 class AppodealInterstitialCallbacks implements InterstitialCallbacks {
 
     private final Activity activity;
+    private int showCounter = 0;
 
     AppodealInterstitialCallbacks(Activity activity) {
         this.activity = activity;
@@ -15,7 +16,6 @@ class AppodealInterstitialCallbacks implements InterstitialCallbacks {
 
     @Override
     public void onInterstitialLoaded(boolean isPrecache) {
-        Toast.makeText(activity, "Loaded", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -24,7 +24,8 @@ class AppodealInterstitialCallbacks implements InterstitialCallbacks {
 
     @Override
     public void onInterstitialShown() {
-
+        showCounter++;
+        Toast.makeText(activity, Integer.toString(showCounter), Toast.LENGTH_SHORT).show();
     }
 
     @Override

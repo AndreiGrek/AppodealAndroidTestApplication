@@ -3,6 +3,7 @@ package ru.academy.mytesttask;
 import android.app.Activity;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.appodeal.ads.RewardedVideoCallbacks;
 
@@ -15,6 +16,7 @@ class AppodealRewardedVideoCallbacks implements RewardedVideoCallbacks {
     AppodealRewardedVideoCallbacks(Activity activity) {
         this.activity = activity;
     }
+    private int showCounter = 0;
 
     @Override
     public void onRewardedVideoLoaded(boolean isPrecache) {
@@ -26,6 +28,8 @@ class AppodealRewardedVideoCallbacks implements RewardedVideoCallbacks {
 
     @Override
     public void onRewardedVideoShown() {
+        showCounter++;
+        Toast.makeText(activity, Integer.toString(showCounter), Toast.LENGTH_SHORT).show();
     }
 
     @Override
