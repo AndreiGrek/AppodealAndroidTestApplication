@@ -16,6 +16,7 @@ private int showCounter = 0;
 
     @Override
     public void onNativeLoaded() {
+        Toast.makeText(activity, "Загружено", Toast.LENGTH_SHORT).show();
     }
 
     @Override

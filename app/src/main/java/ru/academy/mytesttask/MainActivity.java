@@ -1,6 +1,8 @@
 package ru.academy.mytesttask;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -30,9 +32,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private int counterVideo;
     private String APP_KEY;
-    private List<NativeAd> nativeAds = new ArrayList<>();
-    private String placementName = "default";
+    private List<NativeAd> nativeAds;
+    public String placementName = "default";
     private Handler handler = new Handler();
+    private NativeAdapter nativeAdapter;
+    List<RowType> dataSet = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         v.setEnabled(true);
                     }
-                }, 60);
+                }, 6000);
             }
         });
 
@@ -94,18 +98,23 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.native_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Appodeal.setNativeCallbacks(appodealNativeCallbacks);
                 Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
-                Appodeal.cache(MainActivity.this, Appodeal.NATIVE, 1);
-                nativeAds = Appodeal.getNativeAds(3);
-                LinearLayout nativeAdsListView = findViewById(R.id.nativeAdsListView);
-                nativeAdsListView.setTag(nativeAdsListView);
+                Appodeal.cache(MainActivity.this, Appodeal.NATIVE, 4);
+                nativeAds = Appodeal.getNativeAds(4);
 
-                for (NativeAd nativeAd : nativeAds) {
-                    nativeAdsListView.addView(new NativeAdViewNewsFeed(nativeAdsListView.getContext(), nativeAd,
-                            ((MainActivity) nativeAdsListView
-                                    .getContext()).placementName));
+                for (int i=1; i<100; i++){
+                    if (i%7==0) {
+                        dataSet.add(new Native());
+                    } else {
+                        dataSet.add(new Item("Рандомный текст"));
+                    }
                 }
+                RecyclerView recyclerView = findViewById(R.id.recycler);
+                nativeAdapter = new NativeAdapter(dataSet, nativeAds);
+                recyclerView.setAdapter(nativeAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
             }
         });
     }

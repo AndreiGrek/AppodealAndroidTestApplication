@@ -29,10 +29,12 @@ class AppodealBannerCallbacks implements BannerCallbacks {
 
     @Override
     public void onBannerShown() {
-        Toast.makeText(activity, "Counter" + Integer.toString(showCounter), Toast.LENGTH_SHORT).show();
         if (showCounter > 4) {
             Appodeal.hide(activity, Appodeal.BANNER_TOP);
-        } else showCounter++;
+        } else {
+            showCounter++;
+            Toast.makeText(activity, Integer.toString(showCounter), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
