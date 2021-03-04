@@ -1,4 +1,4 @@
-package ru.academy.mytesttask;
+ package ru.academy.mytesttask;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
