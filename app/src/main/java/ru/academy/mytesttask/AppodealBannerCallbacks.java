@@ -15,7 +15,6 @@ class AppodealBannerCallbacks implements BannerCallbacks {
         this.activity = activity;
     }
 
-    private int showCounter = 0;
 
     @Override
     public void onBannerLoaded(int i, boolean b) {
@@ -29,12 +28,7 @@ class AppodealBannerCallbacks implements BannerCallbacks {
 
     @Override
     public void onBannerShown() {
-        if (showCounter > 4) {
-            Appodeal.hide(activity, Appodeal.BANNER_TOP);
-        } else {
-            showCounter++;
-            Toast.makeText(activity, Integer.toString(showCounter), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Override
@@ -52,8 +46,5 @@ class AppodealBannerCallbacks implements BannerCallbacks {
 
     }
 
-    public int getShowCounter() {
-        return showCounter;
-    }
 }
 
