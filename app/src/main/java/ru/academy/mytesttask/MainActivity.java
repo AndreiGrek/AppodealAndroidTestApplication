@@ -1,34 +1,23 @@
  package ru.academy.mytesttask;
 
  import android.os.Bundle;
- import android.os.Handler;
  import android.view.View;
- import android.widget.Toast;
 
  import androidx.appcompat.app.AppCompatActivity;
- import androidx.fragment.app.FragmentManager;
- import androidx.fragment.app.FragmentTransaction;
  import androidx.recyclerview.widget.LinearLayoutManager;
  import androidx.recyclerview.widget.RecyclerView;
 
  import com.appodeal.ads.Appodeal;
  import com.appodeal.ads.NativeAd;
- import com.explorestack.consent.Consent;
  import com.explorestack.consent.ConsentForm;
- import com.explorestack.consent.ConsentFormListener;
- import com.explorestack.consent.ConsentInfoUpdateListener;
- import com.explorestack.consent.ConsentManager;
- import com.explorestack.consent.exception.ConsentManagerException;
 
  import java.util.ArrayList;
  import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private int counterVideo;
     private String APP_KEY;
     private List<NativeAd> nativeAds;
     public String placementName = "default";
-    private Handler handler = new Handler();
     private NativeAdapter nativeAdapter;
     List<RowType> dataSet = new ArrayList<>();
     private ConsentForm consentForm;
@@ -39,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         APP_KEY = "121a60c45245d740876d1849cdc6c877f80b58168086e9a4";
-
-//        AppodealBannerCallbacks appodealBannerCallbacks = new AppodealBannerCallbacks(this);
-//        AppodealInterstitialCallbacks appodealInterstitialCallbacks = new AppodealInterstitialCallbacks(this);
-//        AppodealRewardedVideoCallbacks appodealRewardedVideoCallbacks = new AppodealRewardedVideoCallbacks(this);
-//        AppodealNativeCallbacks appodealNativeCallbacks = new AppodealNativeCallbacks(this);
 
         findViewById(R.id.init_all).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,67 +52,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-//        ConsentManager.getInstance(this).requestConsentInfoUpdate(
-//                APP_KEY,
-//                new ConsentInfoUpdateListener() {
-//                    @Override
-//                    public void onConsentInfoUpdated(Consent consent) {
-//                    }
-//
-//                    @Override
-//                    public void onFailedToUpdateConsentInfo(ConsentManagerException exception) {
-//                    }
-//                });
-
-//        ConsentManager consentManager = ConsentManager.getInstance(this);
-//        Consent consent = consentManager.getConsent();
-//
-//
-//        consentForm = new ConsentForm.Builder(this)
-//                .withListener(new ConsentFormListener() {
-//                    @Override
-//                    public void onConsentFormLoaded() {
-//                        // Consent form was loaded. Now you can display consent form as activity or as dialog
-//                        consentForm.showAsActivity();
-//                    }
-//
-//                    @Override
-//                    public void onConsentFormError(ConsentManagerException error) {
-//                        // Consent form loading or showing failed. More info can be found in 'error' object
-//                    }
-//
-//                    @Override
-//                    public void onConsentFormOpened() {
-//                        // Conset form was shown
-//                    }
-//
-//                    @Override
-//                    public void onConsentFormClosed(Consent consent) {
-//                        // Consent form was closed
-//                    }
-//                })
-//                .build();
-//
-//        consentForm.load();
-
-//        Appodeal.setBannerViewId(R.id.appodealBannerView);
-//        Appodeal.setTesting(true);
-
-
-
-
-
-
         findViewById(R.id.banners_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Appodeal.setBannerCallbacks(appodealBannerCallbacks);
                 Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
             }
         });
@@ -136,33 +62,21 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.interstitials_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Appodeal.setInterstitialCallbacks(appodealInterstitialCallbacks);
                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
             }
         });
 
 
-
         findViewById(R.id.rewarded_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counterVideo < 4) {
-//                    Appodeal.setRewardedVideoCallbacks(appodealRewardedVideoCallbacks);
-                    boolean isShown = Appodeal.show(MainActivity.this, Appodeal.REWARDED_VIDEO);
-                    Toast.makeText(MainActivity.this, String.valueOf(counterVideo), Toast.LENGTH_SHORT).show();
-                    Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
-                    counterVideo++;
-                } else {
-                    v.setEnabled(false);
-                }
+                   Appodeal.show(MainActivity.this, Appodeal.REWARDED_VIDEO);
             }
         });
 
         findViewById(R.id.native_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Appodeal.setNativeCallbacks(appodealNativeCallbacks);
                 Appodeal.hide(MainActivity.this, Appodeal.BANNER_TOP);
                 Appodeal.cache(MainActivity.this, Appodeal.NATIVE, 4);
                 nativeAds = Appodeal.getNativeAds(4);
@@ -181,14 +95,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.fragment_btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                BlankFragment blankFragment = new BlankFragment();
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.add(R.id.container, blankFragment).commit();
-//            }
-//        });
     }
 }
