@@ -34,8 +34,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.appodeal.ads:sdk:2.10.1.+'
-    implementation 'com.explorestack:consent:1.0.3'
+    implementation 'com.appodeal.ads:sdk:2.10.1.1'
+    implementation 'com.explorestack:consent:1.0.4'
+    implementation 'com.google.android.gms:play-services-ads-identifier:15.0.0'
 
 }
 
