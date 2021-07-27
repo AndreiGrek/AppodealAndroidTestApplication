@@ -31,14 +31,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/init_banner" />
 
+    <Button
+        android:id="@+id/init_rewarded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Initialize Interstitial"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/init_inter" />
+
+
     <ImageView
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
+        android:background="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/init_inter" />
+        app:layout_constraintTop_toBottomOf="@+id/init_rewarded" />
 
     <Button
         android:id="@+id/banners_btn"

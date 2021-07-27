@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "ru.academy.mytesttask"
+        applicationId "com.crex24.crex24e"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

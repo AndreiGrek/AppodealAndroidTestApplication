@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APP_KEY = "121a60c45245d740876d1849cdc6c877f80b58168086e9a4";
+        APP_KEY = "5ecd5f91dcb818fadfc6f86708a94db1d6db173b11b242b0";
 
         findViewById(R.id.init_all).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.INTERSTITIAL, true);
+            }
+        });
+
+        findViewById(R.id.init_rewarded).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Appodeal.initialize(MainActivity.this, APP_KEY, Appodeal.REWARDED_VIDEO, true);
             }
         });
 
